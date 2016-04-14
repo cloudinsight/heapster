@@ -21,6 +21,7 @@ import (
 	"github.com/golang/glog"
 	"k8s.io/heapster/common/flags"
 	"k8s.io/heapster/metrics/core"
+	"k8s.io/heapster/metrics/sinks/cloudinsight"
 	"k8s.io/heapster/metrics/sinks/gcm"
 	"k8s.io/heapster/metrics/sinks/hawkular"
 	"k8s.io/heapster/metrics/sinks/influxdb"
@@ -43,6 +44,8 @@ func (this *SinkFactory) Build(uri flags.Uri) (core.DataSink, error) {
 		return hawkular.NewHawkularSink(&uri.Val)
 	case "influxdb":
 		return influxdb.CreateInfluxdbSink(&uri.Val)
+	case "cloudinsight":
+		return cloudinsight.CreateCloudinsightSink(&uri.Val)
 	case "kafka":
 		return kafka.NewKafkaSink(&uri.Val)
 	case "log":
